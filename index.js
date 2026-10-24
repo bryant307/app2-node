@@ -26,16 +26,6 @@ app.get('/', (req, res) => {
   res.json({ mensaje: 'API de Productos - Parcial 2' });
 });
 
-app.get('/debug-env', (req, res) => {
-  const url = process.env.DATABASE_URL || 'NO DEFINIDA';
-  res.json({
-    tieneVariable: !!process.env.DATABASE_URL,
-    longitud: url.length,
-    empieza: url.substring(0, 15),
-    nodeEnv: process.env.NODE_ENV || 'NO DEFINIDA',
-  });
-});
-
 // GET todos
 app.get('/productos', async (req, res) => {
   try {
