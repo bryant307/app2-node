@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const pool = require('./db');
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -90,8 +91,15 @@ app.delete('/productos/:id', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 4000;
-initDB().then(() => {
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`API corriendo en puerto ${PORT}`);
+
+if (require.main === module) {
+  initDB().then(() => {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`API corriendo en puerto ${PORT}`);
+    });
   });
-});
+} else {
+  initDB().catch(console.error);
+}
+
+module.exports = app;
